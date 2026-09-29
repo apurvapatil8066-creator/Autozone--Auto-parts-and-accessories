@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#c8102e">
+<title>AutoZone – Auto Parts &amp; Accessories</title>
+<style>
+:root{--red:#c8102e;--ink:#111;--line:#e5e7eb;--bg:#f3f4f6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+table{border-spacing:0}
+img{max-width:100%}
+a{color:var(--red);text-decoration:none}a:hover{text-decoration:underline}
+h1,h2,h3{line-height:1.2;margin:0 0 6px}
+h2{font-size:clamp(18px,3.5vw,24px)}h3{font-size:15px}
+ul,ol{padding-left:22px}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+button{background:var(--red);color:#fff;border:0;border-radius:8px;padding:8px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+button:hover{background:#a00d25}
+input,select{font:inherit;font-size:14px;padding:7px 10px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;max-width:100%}
+input[type=number]{width:64px}
+mark{background:#e6f6ec;color:#146c2e;padding:2px 10px;border-radius:999px;font-size:14px}
+body>table{background:var(--ink);font-size:12px}
+
+/* header + nav */
+header{position:sticky;top:0;z-index:20;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+header table,header tbody,footer table,footer tbody,#hero>table,#hero tbody,#product-details>table,#product-details>table>tbody,#account>table,#account>table>tbody{display:block}
+header tr,footer tr,#hero tr,#product-details>table>tbody>tr,#account>table>tbody>tr{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start}
+header td,footer td,#hero td,#product-details>table>tbody>tr>td,#account>table>tbody>tr>td{display:block;width:auto;flex:1 1 280px}
+header>table tr{max-width:1200px;margin:0 auto;padding:6px 12px;align-items:center;gap:8px}
+header>table td{padding:0;flex:0 1 auto}
+header>table td:nth-child(2){flex:1 1 280px}
+header h1{margin:0;font-size:22px;font-weight:900}
+header h1 a{color:var(--ink)}
+header form{display:flex;gap:8px}
+header input{flex:1;min-width:0}
+label[for=q]{position:absolute;left:-9999px}
+nav table{background:#fff;border-top:1px solid var(--line);border-bottom:3px solid var(--red)}
+nav tr{flex-wrap:nowrap;overflow-x:auto;gap:0;padding:0;align-items:stretch}
+nav td{flex:0 0 auto;padding:0}
+nav td:first-child{margin-left:auto}nav td:last-child{margin-right:auto}
+nav a{display:block;padding:9px 12px;font-size:14px;color:var(--ink);white-space:nowrap}
+nav a:hover{background:#fdecef;color:var(--red);text-decoration:none}
+
+/* section cards */
+section>table{width:calc(100% - 16px);max-width:1200px;margin:10px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+section>table>tbody>tr>td{padding:clamp(10px,3vw,20px)}
+#shop-parts>table,#guides>table,#account>table{background:transparent;box-shadow:none}
+#compatibility>table{background:#fdecef}
+#deals>table{background:linear-gradient(135deg,#111,#4a0b16)}
+#hero>table{background:linear-gradient(135deg,#fff,#fdecef)}
+#hero tr{align-items:center}
+#hero h2{font-size:clamp(22px,5vw,34px);font-weight:900}
+#hero p a+a button{background:var(--ink)}
+#hero p{margin:8px 0}
+#hero td+td{flex:0 1 240px;background:var(--ink);border-radius:12px;padding:16px;text-align:center;line-height:1.7}
+#hero td+td,#hero td+td *{color:#fff}
+
+/* part finder */
+fieldset{border:1px solid var(--line);border-radius:10px;padding:12px}
+#part-finder table,#part-finder tr,#part-finder td{display:block;padding:0}
+#part-finder tbody{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+#part-finder label{display:block;font-weight:600;font-size:13px;margin-bottom:2px}
+#part-finder select{width:100%}
+#part-finder form>p button{font-size:15px;padding:10px 16px;width:auto}
+@media(max-width:600px){#part-finder form>p button:first-child{width:100%;margin-bottom:8px}}
+
+/* card grids */
+#categories td>table,#shop-parts td>table,#deals td>table{display:block;background:none;border:0}
+#categories tbody,#shop-parts tbody,#deals tbody{display:grid;gap:10px}
+#categories tbody{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+#shop-parts tbody{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+#deals tbody{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+#categories tr,#shop-parts tr,#deals tr{display:contents}
+#categories td>table td,#shop-parts td>table td,#deals td>table td{display:block;width:auto;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;color:var(--ink)}
+#categories td>table td{transition:transform .15s,box-shadow .15s}
+#categories td>table td:hover,#shop-parts td>table td:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,.12)}
+#categories h3{font-size:14px}#categories p{font-size:12.5px;margin:0 0 6px}
+#shop-parts h3,#deals h3{font-size:14px}#shop-parts p,#deals p{margin:3px 0;font-size:13px}
+font[size="7"]{font-size:34px}
+#shop-parts td>table td{display:flex;flex-direction:column}
+#shop-parts article{display:flex;flex-direction:column;height:100%}
+#shop-parts article form{margin-top:auto}
+#shop-parts button{width:100%}
+#deals td>table td{border:0}
+
+/* data tables */
+#cart form>table,#compatibility td>table,#product-details article table{border-collapse:collapse;width:100%;background:#fff;border:1px solid var(--line);border-radius:8px;font-size:13px}
+#cart td,#cart th,#compatibility td>table td,#compatibility th,#product-details article td,#product-details article th{border:0;border-bottom:1px solid var(--line);padding:6px 8px}
+#cart thead tr{background:var(--ink);color:#fff}
+#cart tfoot th{background:#fdecef;color:var(--red);font-size:15px}
+#cart form>p{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+#cart{scroll-margin-top:90px}
+@media(max-width:600px){#cart form>table{font-size:12px}#cart td,#cart th{padding:8px 6px}}
+#product-details td:first-child{flex:0 1 260px;background:var(--bg);border-radius:10px;padding:14px;text-align:center}
+
+/* guides */
+#guides article{background:#fff;border-radius:10px;padding:12px;margin:10px 0;box-shadow:0 1px 3px rgba(0,0,0,.08);scroll-margin-top:90px}
+#guides hr{display:none}
+#guides mark{display:block;background:#fff4d6;color:var(--ink);border-left:4px solid #f5a300;border-radius:6px;padding:8px 10px;font-size:13px}
+#guides li{margin-bottom:6px}
+section{scroll-margin-top:90px}
+
+/* account + footer */
+#account input[type=email],#account input[type=password]{width:100%}
+footer{margin-top:12px}
+footer td{padding:14px;flex:1 1 150px}
+footer table:first-child{background:#e5e7eb}
+footer ul{list-style:none;padding:0}footer li{margin-bottom:6px}
+footer a{color:var(--ink)}footer a:hover{color:var(--red)}
+footer table+table td{padding:14px;text-align:center}
+footer table+table a{color:#fff}
+@media(max-width:600px){body{font-size:13px}header h1{font-size:19px}header>table td:last-child{font-size:13px}#hero h2{font-size:22px}}
+</style>
+</head>
+<body id="home" bgcolor="#f2f2f2" text="#111111" link="#c8102e" vlink="#8f0b20">
+
+<table width="100%" bgcolor="#000000" cellpadding="4"><tr><td align="center"><font color="#ffffff"><small>Free shipping on orders over ₹999 &bull; Free in-store pickup in 30 minutes</small></font></td></tr></table>
+
+<header>
+<table width="100%" bgcolor="#ffffff" cellpadding="8"><tr>
+<td><h1><a href="#home"><font color="#c8102e">AUTO</font>ZONE</a></h1><small>Auto Parts &amp; Accessories</small></td>
+<td>
+<form action="#shop-parts" method="get" role="search">
+<label for="q">Search parts</label>
+<input type="search" id="q" name="q" size="30" placeholder="Part name, brand or part number">
+<button type="submit">Search</button>
+</form>
+</td>
+<td align="right">
+<a href="#account">&#128100; Account</a> |
+<a href="#store-locator">&#128205; Store Locator</a> |
+<a href="#cart">&#128722; Cart (3)</a>
+</td></tr></table>
+<nav aria-label="Main navigation">
+<table width="100%" bgcolor="#dcdcdc" cellpadding="8"><tr align="center">
+<td><a href="#home"><b>Home</b></a></td>
+<td><a href="#shop-parts"><b>Shop Parts</b></a></td>
+<td><a href="#part-finder"><b>Part Finder</b></a></td>
+<td><a href="#compatibility"><b>Vehicle Compatibility</b></a></td>
+<td><a href="#guides"><b>Installation Guides</b></a></td>
+<td><a href="#deals"><b>Deals</b></a></td>
+</tr></table>
+</nav>
+</header>
+
+<main>
+
+<section id="hero">
+<table width="100%" bgcolor="#ffffff" cellpadding="20"><tr>
+<td valign="middle">
+<h2>Find the Right Part for Your Vehicle</h2>
+<p>Over 500,000 parts and accessories for cars, trucks and SUVs. Pick your vehicle, confirm the fit, and get it today with free in-store pickup.</p>
+<p><a href="#part-finder"><button type="button">Find Your Part</button></a>
+<a href="#shop-parts"><button type="button">Shop Parts</button></a></p>
+<ul><li>&#10003; Fit guaranteed</li><li>&#10003; 90-day easy returns</li><li>&#10003; Free installation guides</li></ul>
+</td>
+<td align="center" bgcolor="#000000" width="35%">
+<font color="#ffffff" size="7">&#128663;</font><br>
+<font color="#ffffff">&#128267; &#128739; &#9881; &#128161; &#128295;</font><br>
+<font color="#ffffff"><b>Everything to keep you moving</b></font>
+</td></tr></table>
+</section>
+
+<section id="part-finder">
+<table width="100%" bgcolor="#ffffff" cellpadding="12"><tr><td>
+<h2>Vehicle Part Finder</h2>
+<p>Tell us about your vehicle to see only the parts that fit.</p>
+<form action="#compatibility" method="get">
+<fieldset>
+<legend><b>Select your vehicle</b></legend>
+<table cellpadding="6">
+<tr><td><label for="year">Year</label></td><td>
+<select id="year" name="year"><option>2025</option><option>2024</option><option>2023</option><option selected>2022</option><option>2021</option><option>2020</option><option>2019</option><option>2018</option><option>2017</option><option>2016</option><option>2015</option></select></td></tr>
+<tr><td><label for="make">Make</label></td><td>
+<select id="make" name="make"><option selected>Toyota</option><option>Honda</option><option>Ford</option><option>Chevrolet</option><option>BMW</option><option>Mercedes-Benz</option><option>Hyundai</option><option>Kia</option><option>Volkswagen</option><option>Nissan</option></select></td></tr>
+<tr><td><label for="model">Model</label></td><td>
+<select id="model" name="model">
+<optgroup label="Toyota"><option selected>Camry</option><option>Corolla</option><option>RAV4</option><option>Tacoma</option></optgroup>
+<optgroup label="Honda"><option>Civic</option><option>Accord</option><option>CR-V</option></optgroup>
+<optgroup label="Ford"><option>F-150</option><option>Escape</option><option>Mustang</option></optgroup>
+<optgroup label="Chevrolet"><option>Silverado 1500</option><option>Equinox</option><option>Malibu</option></optgroup>
+<optgroup label="BMW"><option>3 Series</option><option>X5</option></optgroup>
+<optgroup label="Mercedes-Benz"><option>C-Class</option><option>GLC</option></optgroup>
+<optgroup label="Hyundai"><option>Elantra</option><option>Tucson</option></optgroup>
+<optgroup label="Kia"><option>Sportage</option><option>Forte</option></optgroup>
+<optgroup label="Volkswagen"><option>Jetta</option><option>Tiguan</option></optgroup>
+<optgroup label="Nissan"><option>Altima</option><option>Rogue</option></optgroup>
+</select></td></tr>
+<tr><td><label for="engine">Engine</label></td><td>
+<select id="engine" name="engine"><option selected>2.5L 4-Cyl (A25A-FKS)</option><option>3.5L V6</option><option>1.5L Turbo 4-Cyl</option><option>2.0L Turbo 4-Cyl</option><option>5.0L V8</option><option>2.0L Hybrid</option></select></td></tr>
+<tr><td><label for="trim">Trim</label></td><td>
+<select id="trim" name="trim"><option>LE</option><option selected>SE</option><option>XLE</option><option>XSE</option><option>TRD</option></select></td></tr>
+</table>
+</fieldset>
+<p><button type="submit"><b>CHECK COMPATIBILITY</b></button> <button type="reset">Reset</button></p>
+</form>
+<p><small>Demo prototype: choices do not change the static example result below.</small></p>
+</td></tr></table>
+</section>
+
+<section id="compatibility">
+<table width="100%" bgcolor="#f7d9dd" cellpadding="12"><tr><td>
+<h2>Vehicle Compatibility Checker</h2>
+<table border="1" cellpadding="6" width="100%" bgcolor="#ffffff">
+<caption><b>Selected vehicle</b></caption>
+<tr><th align="left">Vehicle</th><td>2022 Toyota Camry SE</td></tr>
+<tr><th align="left">Year</th><td>2022</td></tr>
+<tr><th align="left">Make</th><td>Toyota</td></tr>
+<tr><th align="left">Model</th><td>Camry</td></tr>
+<tr><th align="left">Engine</th><td>2.5L 4-Cyl (A25A-FKS)</td></tr>
+<tr><th align="left">Compatibility status</th><td><mark><b>&#10003; Compatible with your selected vehicle</b></mark></td></tr>
+</table>
+<p>Great news! 1,248 parts fit your 2022 Toyota Camry, including oil, filters, brakes, batteries, wipers and lighting.</p>
+<p><a href="#shop-parts"><button type="button">Shop Compatible Parts</button></a>
+<a href="#part-finder"><button type="button">Change Vehicle</button></a></p>
+</td></tr></table>
+</section>
+
+<section id="categories">
+<table width="100%" bgcolor="#ffffff" cellpadding="12"><tr><td>
+<h2>Shop by Category</h2>
+<table width="100%" border="1" cellpadding="10" bordercolor="#cccccc">
+<tr valign="top">
+<td width="25%"><h3>&#128738; Oil &amp; Filters</h3><p>Engine oil, oil filters and drain plugs.</p><a href="#shop-parts">View Parts</a></td>
+<td width="25%"><h3>&#128267; Batteries</h3><p>Starting batteries, chargers and jump starters.</p><a href="#shop-parts">View Parts</a></td>
+<td width="25%"><h3>&#128721; Brakes</h3><p>Pads, rotors, calipers and brake fluid.</p><a href="#shop-parts">View Parts</a></td>
+<td width="25%"><h3>&#9881; Engine Parts</h3><p>Spark plugs, gaskets, sensors and pumps.</p><a href="#shop-parts">View Parts</a></td></tr>
+<tr valign="top">
+<td><h3>&#10052; Cooling System</h3><p>Radiators, coolant, thermostats and fans.</p><a href="#shop-parts">View Parts</a></td>
+<td><h3>&#128161; Lighting</h3><p>Headlights, tail lights and LED bulbs.</p><a href="#shop-parts">View Parts</a></td>
+<td><h3>&#128295; Tools</h3><p>Socket sets, jacks, scanners and torque wrenches.</p><a href="#shop-parts">View Parts</a></td>
+<td><h3>&#128663; Accessories</h3><p>Floor mats, covers, phone mounts and more.</p><a href="#shop-parts">View Parts</a></td></tr>
+<tr valign="top">
+<td><h3>&#128739; Suspension</h3><p>Shocks, struts, control arms and bushings.</p><a href="#shop-parts">View Parts</a></td>
+<td><h3>&#9889; Electrical</h3><p>Alternators, starters, fuses and wiring.</p><a href="#shop-parts">View Parts</a></td>
+<td><h3>&#127783; Wipers</h3><p>Wiper blades, washer fluid and reservoirs.</p><a href="#shop-parts">View Parts</a></td>
+<td><h3>&#127744; Belts &amp; Hoses</h3><p>Serpentine belts, timing belts and hoses.</p><a href="#shop-parts">View Parts</a></td></tr>
+</table>
+</td></tr></table>
+</section>
+
+<section id="shop-parts">
+<table width="100%" bgcolor="#f2f2f2" cellpadding="12"><tr><td>
+<h2>Shop Parts</h2>
+<p>Showing top sellers that fit your <b>2022 Toyota Camry SE</b>.</p>
+<table width="100%" border="1" cellpadding="10" bordercolor="#cccccc" bgcolor="#ffffff">
+<tr valign="top">
+<td width="25%"><article><h3>&#128738; Premium Synthetic Engine Oil</h3><p>Full synthetic 5W-30, 5 quart jug. Protects up to 10,000 miles.</p><p><b>₹2,639</b><br>&#9733;&#9733;&#9733;&#9733;&#9733; 4.8 (2,310)</p><p><mark>&#10003; Fits your vehicle</mark></p><p><a href="#product-details">View Details</a></p><form action="#cart"><button type="submit">Add to Cart</button></form></article></td>
+<td width="25%"><article><h3>&#128267; Car Battery (Group 35)</h3><p>640 CCA, 3-year free replacement warranty.</p><p><b>₹11,999</b><br>&#9733;&#9733;&#9733;&#9733;&#9734; 4.6 (1,184)</p><p><mark>&#10003; Fits your vehicle</mark></p><p><a href="#product-details">View Details</a></p><form action="#cart"><button type="submit">Add to Cart</button></form></article></td>
+<td width="25%"><article><h3>&#128721; Ceramic Brake Pad Set</h3><p>Low-dust, quiet stopping. Front axle set with hardware.</p><p><b>₹4,399</b><br>&#9733;&#9733;&#9733;&#9733;&#9733; 4.7 (963)</p><p><mark>&#10003; Fits your vehicle</mark></p><p><a href="#product-details">View Details</a></p><form action="#cart"><button type="submit">Add to Cart</button></form></article></td>
+<td width="25%"><article><h3>&#128161; LED Headlight Kit (H11)</h3><p>6,000K white, 12,000 lumens per pair, plug and play.</p><p><b>₹6,399</b><br>&#9733;&#9733;&#9733;&#9733;&#9734; 4.4 (688)</p><p><mark>&#10003; Fits your vehicle</mark></p><p><a href="#product-details">View Details</a></p><form action="#cart"><button type="submit">Add to Cart</button></form></article></td></tr>
+<tr valign="top">
+<td><article><h3>&#127744; Engine Air Filter</h3><p>High-flow panel filter traps 99% of dust and debris.</p><p><b>₹1,599</b><br>&#9733;&#9733;&#9733;&#9733;&#9734; 4.5 (1,502)</p><p><mark>&#10003; Fits your vehicle</mark></p><p><a href="#product-details">View Details</a></p><form action="#cart"><button type="submit">Add to Cart</button></form></article></td>
+<td><article><h3>&#127788; Cabin Air Filter</h3><p>Activated carbon filter reduces odors and allergens.</p><p><b>₹1,359</b><br>&#9733;&#9733;&#9733;&#9733;&#9733; 4.7 (1,077)</p><p><mark>&#10003; Fits your vehicle</mark></p><p><a href="#product-details">View Details</a></p><form action="#cart"><button type="submit">Add to Cart</button></form></article></td>
+<td><article><h3>&#10052; Radiator Coolant 50/50</h3><p>Ready-to-use all-makes antifreeze, 1 gallon.</p><p><b>₹1,479</b><br>&#9733;&#9733;&#9733;&#9733;&#9734; 4.6 (842)</p><p><mark>&#10003; Fits your vehicle</mark></p><p><a href="#product-details">View Details</a></p><form action="#cart"><button type="submit">Add to Cart</button></form></article></td>
+<td><article><h3>&#127783; Windshield Wiper Set</h3><p>Beam-style 26&quot; + 18&quot; blades for streak-free clarity.</p><p><b>₹2,399</b><br>&#9733;&#9733;&#9733;&#9733;&#9734; 4.5 (1,391)</p><p><mark>&#10003; Fits your vehicle</mark></p><p><a href="#product-details">View Details</a></p><form action="#cart"><button type="submit">Add to Cart</button></form></article></td></tr>
+</table>
+</td></tr></table>
+</section>
+
+<section id="product-details">
+<table width="100%" bgcolor="#ffffff" cellpadding="12"><tr valign="top">
+<td width="30%" align="center" bgcolor="#eeeeee"><font size="7">&#128738;</font><br><b>Premium Synthetic Engine Oil 5W-30</b><br><small>Product visual</small></td>
+<td>
+<article>
+<h2>Premium Synthetic Engine Oil 5W-30 (5 Qt)</h2>
+<p>&#9733;&#9733;&#9733;&#9733;&#9733; 4.8 out of 5 (2,310 reviews) &bull; SKU: AZ-OIL-5W30-5Q</p>
+<p><b>₹2,639</b> <del>₹3,199</del> &bull; <mark>In stock &ndash; pickup today</mark></p>
+<h3>Description</h3>
+<p>Advanced full synthetic formula cleans engine deposits, resists sludge and keeps engines protected in extreme heat and cold. Meets API SP and ILSAC GF-6A for modern gasoline engines.</p>
+<h3>Specifications</h3>
+<table border="1" cellpadding="6">
+<tr><th align="left">Viscosity</th><td>5W-30</td></tr>
+<tr><th align="left">Type</th><td>Full synthetic</td></tr>
+<tr><th align="left">Size</th><td>5 quarts</td></tr>
+<tr><th align="left">Certification</th><td>API SP, ILSAC GF-6A</td></tr>
+<tr><th align="left">Change interval</th><td>Up to 10,000 miles</td></tr>
+<tr><th align="left">Warranty</th><td>Manufacturer-backed, 90-day returns</td></tr>
+</table>
+<h3>Compatible vehicles</h3>
+<ul>
+<li>2018&ndash;2024 Toyota Camry, Corolla, RAV4</li>
+<li>2016&ndash;2024 Honda Accord, Civic, CR-V</li>
+<li>2015&ndash;2023 Ford Escape, Fusion, Edge</li>
+<li>2017&ndash;2024 Hyundai Elantra, Tucson &amp; Kia Forte, Sportage</li>
+</ul>
+<form action="#cart" method="get">
+<label for="qty">Quantity</label>
+<select id="qty" name="qty"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+<button type="submit"><b>Add to Cart</b></button>
+</form>
+<h3>Installation information</h3>
+<p>Difficulty: Easy &bull; Time: 30&ndash;45 minutes &bull; Tools: wrench, drain pan, oil filter wrench. See the <a href="#guide-oil">oil change guide</a>.</p>
+</article>
+</td></tr></table>
+</section>
+
+<section id="guides">
+<table width="100%" bgcolor="#f2f2f2" cellpadding="12"><tr><td>
+<h2>Installation Guides</h2>
+<p>Jump to: <a href="#guide-oil">Engine Oil</a> | <a href="#guide-battery">Battery</a> | <a href="#guide-brakes">Brake Pads</a> | <a href="#guide-filter">Air Filter</a> | <a href="#guide-wipers">Wipers</a> | <a href="#guide-headlights">Headlights</a></p>
+
+<article id="guide-oil"><h3>How to Change Engine Oil</h3>
+<p><b>Difficulty:</b> Easy &bull; <b>Time:</b> 30&ndash;45 min &bull; <b>Tools:</b> socket wrench, drain pan, oil filter wrench, funnel, jack stands</p>
+<p><mark><b>&#9888; Safety:</b> Never work under a car supported only by a jack. Let the engine cool first; oil is hot.</mark></p>
+<ol><li>Warm the engine for 2 minutes, then park on level ground and turn it off.</li><li>Raise the vehicle and secure it on jack stands.</li><li>Place the drain pan and remove the drain plug. Let the oil drain fully.</li><li>Replace the filter after oiling the new gasket. Reinstall the drain plug.</li><li>Add new oil, check the dipstick, run the engine and check for leaks.</li></ol></article>
+<hr>
+<article id="guide-battery"><h3>How to Replace a Car Battery</h3>
+<p><b>Difficulty:</b> Easy &bull; <b>Time:</b> 20&ndash;30 min &bull; <b>Tools:</b> 10mm wrench, terminal cleaner, gloves, eye protection</p>
+<p><mark><b>&#9888; Safety:</b> Wear eye protection. Disconnect negative first and reconnect it last to avoid sparks.</mark></p>
+<ol><li>Turn off the vehicle and remove the key.</li><li>Disconnect the negative (&minus;) cable, then the positive (+).</li><li>Remove the hold-down bracket and lift out the old battery.</li><li>Clean the tray and terminals, then set the new battery in place.</li><li>Reconnect positive first, then negative, and tighten firmly.</li></ol></article>
+<hr>
+<article id="guide-brakes"><h3>How to Replace Brake Pads</h3>
+<p><b>Difficulty:</b> Moderate &bull; <b>Time:</b> 1&ndash;2 hours &bull; <b>Tools:</b> jack, jack stands, lug wrench, C-clamp, socket set, brake grease</p>
+<p><mark><b>&#9888; Safety:</b> Brakes are safety-critical. Never inhale brake dust and test brakes before driving.</mark></p>
+<ol><li>Loosen lug nuts, lift the vehicle and remove the wheel.</li><li>Remove the caliper bolts and hang the caliper with wire.</li><li>Take out the old pads and clean the bracket.</li><li>Compress the piston with a C-clamp, apply grease and fit the new pads.</li><li>Reinstall the caliper and wheel, then pump the brake pedal before driving.</li></ol></article>
+<hr>
+<article id="guide-filter"><h3>How to Replace an Engine Air Filter</h3>
+<p><b>Difficulty:</b> Easy &bull; <b>Time:</b> 5&ndash;10 min &bull; <b>Tools:</b> screwdriver (if clips are not tool-free)</p>
+<p><mark><b>&#9888; Safety:</b> Make sure the engine is off and cool before opening the airbox.</mark></p>
+<ol><li>Locate the airbox, a black plastic case near the engine.</li><li>Release the clips or screws and lift the cover.</li><li>Remove the old filter and wipe out debris.</li><li>Insert the new filter with the rubber rim seated.</li><li>Close the cover and secure all clips.</li></ol></article>
+<hr>
+<article id="guide-wipers"><h3>How to Replace Windshield Wipers</h3>
+<p><b>Difficulty:</b> Easy &bull; <b>Time:</b> 5 min &bull; <b>Tools:</b> none</p>
+<p><mark><b>&#9888; Safety:</b> Fold a towel under the arm so it cannot snap back and crack the windshield.</mark></p>
+<ol><li>Lift the wiper arm away from the glass.</li><li>Press the release tab and slide the old blade off the hook.</li><li>Slide the new blade on until it clicks.</li><li>Lower the arm gently and repeat for the other side.</li></ol></article>
+<hr>
+<article id="guide-headlights"><h3>How to Replace Headlights</h3>
+<p><b>Difficulty:</b> Moderate &bull; <b>Time:</b> 20&ndash;40 min &bull; <b>Tools:</b> gloves, screwdriver, trim tool</p>
+<p><mark><b>&#9888; Safety:</b> Disconnect the battery, let bulbs cool, and never touch new bulb glass with bare fingers.</mark></p>
+<ol><li>Open the hood and find the back of the headlight assembly.</li><li>Unplug the connector and twist the old bulb out.</li><li>Insert the new bulb or LED kit, wearing gloves.</li><li>Reconnect the plug, then test low and high beams.</li><li>Check aim against a wall at night.</li></ol></article>
+</td></tr></table>
+</section>
+
+<section id="deals">
+<table width="100%" bgcolor="#000000" cellpadding="16"><tr><td>
+<font color="#ffffff">
+<h2>Save More on Your Next Repair</h2>
+<table width="100%" border="1" cellpadding="10" bgcolor="#ffffff"><tr valign="top">
+<td><font color="#111111"><h3>&#128738; Oil Change Bundle</h3><p>Synthetic oil + oil filter + drain plug gasket.</p><p><b>₹3,599</b> <del>₹4,719</del></p></font></td>
+<td><font color="#111111"><h3>&#128721; Brake Refresh Kit</h3><p>Ceramic pads + brake cleaner + grease.</p><p><b>₹5,199</b> <del>₹6,399</del></p></font></td>
+<td><font color="#111111"><h3>&#127783; Winter Ready Pack</h3><p>Wiper set + washer fluid + ice scraper.</p><p><b>₹3,199</b> <del>₹3,999</del></p></font></td>
+<td><font color="#111111"><h3>&#128267; Battery Deal</h3><p>Save ₹1,600 on any battery with trade-in.</p><p><b>₹10,399</b> <del>₹11,999</del></p></font></td>
+</tr></table>
+<p>Also: 15% off accessories &bull; Buy 2 filters, get 1 free &bull; Free battery testing and installation in store.</p>
+<p><a href="#shop-parts"><button type="button"><b>Shop Deals</b></button></a></p>
+</font>
+</td></tr></table>
+</section>
+
+<section id="cart">
+<table width="100%" bgcolor="#ffffff" cellpadding="12"><tr><td>
+<h2>Shopping Cart</h2>
+<form action="#cart" method="post">
+<table width="100%" border="1" cellpadding="8">
+<thead><tr bgcolor="#dcdcdc"><th align="left">Product</th><th>Quantity</th><th align="right">Price</th><th align="right">Subtotal</th></tr></thead>
+<tbody>
+<tr><td>Premium Synthetic Engine Oil 5W-30</td><td align="center"><input type="number" name="q1" value="2" min="1" max="10" size="3"></td><td align="right">₹2,639</td><td align="right">₹5,278</td></tr>
+<tr><td>Engine Air Filter</td><td align="center"><input type="number" name="q2" value="1" min="1" max="10" size="3"></td><td align="right">₹1,599</td><td align="right">₹1,599</td></tr>
+<tr><td>Ceramic Brake Pad Set</td><td align="center"><input type="number" name="q3" value="1" min="1" max="10" size="3"></td><td align="right">₹4,399</td><td align="right">₹4,399</td></tr>
+</tbody>
+<tfoot>
+<tr><td colspan="3" align="right">Items subtotal</td><td align="right">₹11,276</td></tr>
+<tr><td colspan="3" align="right">Estimated GST (18%)</td><td align="right">₹2,030</td></tr>
+<tr><td colspan="3" align="right">Shipping</td><td align="right">FREE</td></tr>
+<tr><th colspan="3" align="right">Estimated total</th><th align="right">₹13,306</th></tr>
+</tfoot>
+</table>
+<p><button type="submit">Update Cart</button>
+<button type="button"><b>Checkout</b></button>
+<a href="#shop-parts">Continue Shopping</a></p>
+<p><small>Static demonstration: totals do not update automatically.</small></p>
+</form>
+</td></tr></table>
+</section>
+
+<section id="account">
+<table width="100%" bgcolor="#f2f2f2" cellpadding="12"><tr valign="top">
+<td width="50%"><h2>Account Sign In</h2>
+<form action="#account" method="post">
+<p><label for="email">Email</label><br><input type="email" id="email" name="email" size="30" required></p>
+<p><label for="pw">Password</label><br><input type="password" id="pw" name="pw" size="30" required></p>
+<p><button type="submit">Sign In</button> <a href="#account">Create account</a></p>
+</form></td>
+<td id="store-locator"><h2>Store Locator</h2>
+<form action="#store-locator" method="get">
+<p><label for="zip">PIN code</label><br><input type="text" id="zip" name="zip" size="10" maxlength="6" placeholder="e.g. 400001"> <button type="submit">Find Stores</button></p>
+</form>
+<ul><li>Downtown Store &ndash; 120 Main St, open until 9 PM</li><li>Northside Store &ndash; 4400 Oak Ave, open until 9 PM</li><li>Airport Road Store &ndash; 88 Airport Rd, open until 8 PM</li></ul></td>
+</tr></table>
+</section>
+
+</main>
+
+<footer>
+<table width="100%" bgcolor="#dcdcdc" cellpadding="14"><tr valign="top">
+<td><h3>SHOP</h3><ul><li><a href="#shop-parts">Auto Parts</a></li><li><a href="#categories">Accessories</a></li><li><a href="#deals">Deals</a></li></ul></td>
+<td><h3>HELP</h3><ul><li><a href="#part-finder">Vehicle Finder</a></li><li><a href="#guides">Installation Guides</a></li><li><a href="#contact">Contact Support</a></li></ul></td>
+<td id="contact"><h3>COMPANY</h3><ul><li><a href="#home">About AutoZone</a></li><li><a href="#store-locator">Store Locator</a></li><li><a href="#home">Careers</a></li><li><a href="#contact">Contact Us</a></li></ul><address>1800-555-0199<br>support@autozone.example</address></td>
+</tr></table>
+<table width="100%" bgcolor="#000000" cellpadding="8"><tr><td align="center"><font color="#ffffff"><small>
+<a href="#home"><font color="#ffffff">Privacy Policy</font></a> |
+<a href="#home"><font color="#ffffff">Terms &amp; Conditions</font></a> |
+<a href="#home"><font color="#ffffff">Accessibility</font></a><br>
+&copy; 2026 AutoZone. All rights reserved. Demo prototype.</small></font></td></tr></table>
+</footer>
+
+</body>
+</html>
